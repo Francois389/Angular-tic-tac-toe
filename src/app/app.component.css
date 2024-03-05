@@ -1,6 +1,31 @@
 .content {
     display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.game {
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin: 10px;
+}
+
+.container-btn-voyage-temporel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+}
+
+.txtMsgIndication {
+    font-size: 2em;
+    margin: 10px;
+}
+
+.desactive {
+    cursor: not-allowed;
 }

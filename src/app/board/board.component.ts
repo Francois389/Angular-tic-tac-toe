@@ -1,7 +1,8 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CaseComponent} from "../case/case.component";
 import {Board} from "../models/Board.models";
 import {NgForOf} from "@angular/common";
+import {Partie} from "../models/Partie.models";
 
 @Component({
   selector: 'board',
@@ -12,41 +13,44 @@ import {NgForOf} from "@angular/common";
     ],
   template: `
       <div class="ligne" *ngFor="let ligne of [0, 1, 2]">
-          <case *ngFor="let colonne of [0, 1, 2]" [caratere]="board.getPion(ligne, colonne)" [isWinning]="board.isWinningSquare(ligne, colonne)" (click)="onCLick(ligne, colonne)"></case>
+          <case
+              *ngFor="let colonne of [0, 1, 2]"
+              [caratere]="partie.getPion(ligne, colonne)"
+              [isWinning]="partie.isWinningSquare(ligne, colonne)"
+              [isNul]="partie.isFull()"
+              (click)="onClick(ligne, colonne)"
+          ></case>
       </div>
   `,
   styleUrl: './board.component.css'
 })
 export class BoardComponent implements OnInit{
-    board!: Board;
-    nbTour!: number;
-    caractere!: string[];
+
+    @Input() partie!: Partie;
 
     @Output() updateMessage: EventEmitter<string> = new EventEmitter<string>();
 
     ngOnInit(): void {
-        this.board = new Board();
-        this.nbTour = 0;
-        this.caractere = ['X', 'O'];
+
     }
 
 
-    onCLick(x: number, y: number) {
-        if (this.board.getPion(x, y) === '' && !this.board.estPlein && !this.board.existeGagnant) {
-            this.board.setPion(x, y, this.caractere[this.nbTour % 2]);
-            this.nbTour++;
+    onClick(x: number, y: number) {
+        if (this.partie.getPion(x, y) === '' && !this.partie.isFull() && !this.partie.existeGagnant) {
+            this.partie.setPion(x, y, this.partie.carateres[this.partie.nbTour % 2]);
 
             this.envoyerMessage();
         }
     }
 
     private envoyerMessage() {
-        if (this.board.isWin(this.caractere[(this.nbTour - 1) % 2])) {
-            this.updateMessage.emit('Le joueur ' + this.caractere[(this.nbTour - 1) % 2] + ' a gagné');
-        } else if (this.board.isFull()) {
+        if (this.partie.isWin(this.partie.carateres[(this.partie.nbTour % 2) - 1])) {
+            this.updateMessage.emit('Le joueur ' + this.partie.currentCaratere + ' a gagné');
+        } else if (this.partie.isFull()) {
             this.updateMessage.emit('Match nul');
         } else {
-            this.updateMessage.emit('Au tour du joueur ' + this.caractere[this.nbTour % 2] + ' de jouer');
+            this.updateMessage.emit('Au tour du joueur ' + this.partie.currentCaratere + ' de jouer');
         }
     }
+
 }

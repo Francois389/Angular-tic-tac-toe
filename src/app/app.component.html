@@ -1,8 +1,23 @@
 <main class="main">
     <h1>Tic Tac Toe</h1>
     <div class="content">
-        <p>{{ msgIndication }}</p>
-        <board (updateMessage)="updateMessageIndication($event)"></board>
+        <div class="game">
+            <p class="txtMsgIndication">{{ msgIndication }}</p>
+            <board (updateMessage)="updateMessageIndication($event)" [partie]="partie"></board>
+        </div>
+        <div class="container-btn-voyage-temporel">
+            <ul>
+                <li class="btn-voyage"
+                    *ngFor="let btn of partie.historique; let i = index"
+                    (click)="partie.setCurrent(i)"
+                >
+                    <button [disabled]="i === partie.current">
+                        Tour n°{{ i }}
+                    </button>
+                </li>
+            </ul>
+        </div>
+
     </div>
 </main>
 

@@ -63,16 +63,21 @@ export class Board {
         return this.board[x][y];
     }
 
-
     get existeGagnant(): boolean {
         return this._existeGagnant;
     }
 
-    get estPlein(): boolean {
-        return this._estPlein;
-    }
-
     public isWinningSquare(x: number, y:number): boolean {
         return this.winningSqaure.includes(x*3+y);
+    }
+
+    clone() {
+        const newBoard = new Board();
+        for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 3; j++) {
+                newBoard.setPion(i, j, this.board[i][j]);
+            }
+        }
+        return newBoard;
     }
 }

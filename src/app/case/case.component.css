@@ -30,3 +30,16 @@
         font-size: 4vh;
     }
 }
+
+.matchNul    {
+    animation-name: disappear;
+    animation-duration: 1.5s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes disappear {
+    to {
+        font-size: 0;
+        opacity: 0;
+    }
+}
