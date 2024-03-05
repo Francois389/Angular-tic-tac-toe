@@ -1,0 +1,32 @@
+.case-root {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    width: 100px;
+    box-sizing: border-box;
+    border: black 1px solid;
+}
+
+.caractere {
+    font-size: 50px;
+}
+
+.gagnant {
+    color: #16a216;
+    animation-name: fade;
+    animation-duration: 1.5s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes fade {
+    0% {
+        font-size: 4vh;
+    }
+    50% {
+        font-size: 8vh;
+    }
+    100% {
+        font-size: 4vh;
+    }
+}
