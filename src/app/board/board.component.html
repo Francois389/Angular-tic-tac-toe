@@ -1,0 +1,9 @@
+<div class="ligne" *ngFor="let ligne of [0, 1, 2]">
+    <case
+        *ngFor="let colonne of [0, 1, 2]"
+        [caratere]="partie.getPion(ligne, colonne)"
+        [isWinning]="partie.isWinningSquare(ligne, colonne)"
+        [isNul]="partie.isFull()"
+        (click)="onClick(ligne, colonne)"
+    ></case>
+</div>

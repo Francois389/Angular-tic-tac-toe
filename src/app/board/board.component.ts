@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {CaseComponent} from "../case/case.component";
 import {Board} from "../models/Board.models";
 import {NgForOf} from "@angular/common";
@@ -11,28 +11,14 @@ import {Partie} from "../models/Partie.models";
         CaseComponent,
         NgForOf
     ],
-  template: `
-      <div class="ligne" *ngFor="let ligne of [0, 1, 2]">
-          <case
-              *ngFor="let colonne of [0, 1, 2]"
-              [caratere]="partie.getPion(ligne, colonne)"
-              [isWinning]="partie.isWinningSquare(ligne, colonne)"
-              [isNul]="partie.isFull()"
-              (click)="onClick(ligne, colonne)"
-          ></case>
-      </div>
-  `,
+  templateUrl: './board.component.html',
   styleUrl: './board.component.css'
 })
-export class BoardComponent implements OnInit{
+export class BoardComponent{
 
     @Input() partie!: Partie;
 
     @Output() updateMessage: EventEmitter<string> = new EventEmitter<string>();
-
-    ngOnInit(): void {
-
-    }
 
 
     onClick(x: number, y: number) {

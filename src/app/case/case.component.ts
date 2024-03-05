@@ -7,23 +7,14 @@ import {NgClass} from "@angular/common";
     imports: [
         NgClass
     ],
-  template: `
-      <div class="case-root">
-          <div
-              class="caractere"
-              [ngClass]="{gagnant : isWinning, matchNul : isNul}"
-          >{{ caratere }}</div>
-      </div>
-  `,
+  templateUrl: './case.component.html',
   styleUrl: './case.component.css'
 })
 
 export class CaseComponent {
 
-    // On ajoute un point d'exclamation pour dire que la valeur est initialisée dans le parent
     @Input() caratere!: string;
     @Input() isWinning!: boolean;
     @Input() isNul!: boolean;
 
 }
-
